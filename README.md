@@ -1,1 +1,1 @@
-# SOCKS5-Proxy-Server
+# LiteProxy
