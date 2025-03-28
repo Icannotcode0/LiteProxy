@@ -1,0 +1,7 @@
+{
+    "mode": "client",
+    "type":"http",
+    "port":1080,
+    "target":"www.example.com",
+    "query_data":[["HTTP OPTION"],["HTTP GET/ 1.1"]]
+}

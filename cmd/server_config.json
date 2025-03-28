@@ -1,0 +1,5 @@
+{
+    "mode":"server",
+    "type":"socks5",
+    "port": 1080
+}
