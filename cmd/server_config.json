@@ -1,5 +1,10 @@
 {
     "mode":"server",
     "type":"socks5",
-    "port": 1080
+    "port": 1080,
+    "tls_enable":1,
+    "read_time_out":10,
+    "write_time_out":5,
+    "cert_file":"server.cert",
+    "key_file":"server.key"
 }
