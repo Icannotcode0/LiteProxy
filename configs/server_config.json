@@ -1,6 +1,6 @@
 {
     "mode":"server",
-    "type":"socks5",
+    "protocol":"socks5",
     "port": 1080,
     "tls_enable":true,
     "read_time_out":10,
