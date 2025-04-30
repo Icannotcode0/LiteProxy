@@ -11,16 +11,13 @@ import (
 	"github.com/sirupsen/logrus"
 )
 
-type methodWrapper struct {
-	Wrapper *internalsocks5.Socks5Server
-}
-
 // interface for socks5 server
 type Server interface {
 	ListenAndServe() error
 	ShutDown()
 }
 
+// generates a SOCKS5 server with simplest configuration
 func ClassicSock5Server() *internalsocks5.Socks5Server {
 
 	classicConfig := config.Socks5ServerConfig{
@@ -53,16 +50,4 @@ func NewSocks5Server(cfg config.Socks5ServerConfig) (*internalsocks5.Socks5Serve
 	}
 
 	return newServer, nil
-}
-
-func (w *methodWrapper) ListenAndServe() error {
-
-	err := w.Wrapper.ListenAndServe()
-
-	return err
-}
-
-func (w *methodWrapper) ShutDown() {
-
-	w.Wrapper.ShutDown()
 }
