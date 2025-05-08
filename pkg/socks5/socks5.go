@@ -7,6 +7,7 @@ import (
 	"time"
 
 	internalsocks5 "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5"
+	auth "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5/authetication"
 	config "github.com/Icannotcode0/LiteProxy/pkg/config"
 	"github.com/sirupsen/logrus"
 )
@@ -29,6 +30,15 @@ func ClassicSock5Server() *internalsocks5.Socks5Server {
 		ServerTLSCrt: "server.crt",
 		ServerTLSKey: "server.key",
 		MaxConns:     100,
+		AuthPriority: map[int]int{
+			0x00: 300,
+			0x01: 200,
+			0x02: 200,
+		},
+		AuthMethods: []auth.Autheticator{auth.UserPassAuth{
+
+			Vault: map[string]string{"tester": "password0", "admin": "password1", "mock_trial": "password2"},
+		}, auth.NoAuthAccepted{}, auth.NoAuth{}},
 	}
 
 	classicListener, err := net.Listen("tcp", fmt.Sprintf("[::]:%d", 1080))

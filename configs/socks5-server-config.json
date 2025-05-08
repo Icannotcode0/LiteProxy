@@ -7,5 +7,7 @@
     "write_time_out":"5s",
     "cert_file":"server.cert",
     "key_file":"server.key",
-    "max_conns":100
+    "max_conns":100,
+    "auth_priority":{"0":300, "2":500,"1":400},
+    "auth_methods":[{"tester":"Password0","admin":"Password1"}]
 }
