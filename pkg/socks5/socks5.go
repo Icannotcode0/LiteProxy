@@ -4,7 +4,6 @@ import (
 	"fmt"
 	"net"
 	"sync"
-	"time"
 
 	internalsocks5 "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5"
 	auth "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5/authetication"
@@ -25,8 +24,8 @@ func ClassicSock5Server() *internalsocks5.Socks5Server {
 
 		Port:         1080,
 		TLSEnable:    true,
-		ReadTimeOut:  5 * time.Second,
-		WriteTimeOut: 5 * time.Second,
+		ReadTimeOut:  5,
+		WriteTimeOut: 5,
 		ServerTLSCrt: "server.crt",
 		ServerTLSKey: "server.key",
 		MaxConns:     100,

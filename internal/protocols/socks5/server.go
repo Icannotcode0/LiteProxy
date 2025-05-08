@@ -63,6 +63,8 @@ func (s *Socks5Server) ListenAndServe() error {
 
 			// relay the authetication configuration setup of the server to each request
 			req := &req.Request{TcpConnect: clientConn, AuthContent: s.Config.AuthMethods, AuthPriority: s.Config.AuthPriority}
+			//req.TcpConnect.SetReadDeadline(time.Now().Add(time.Duration(s.Config.ReadTimeOut)))
+			//req.TcpConnect.SetWriteDeadline(time.Now().Add(time.Duration(s.Config.WriteTimeOut)))
 			_, loaded := s.ActiveConns.LoadOrStore(clientConn, req)
 			if loaded {
 				logrus.Errorf("[LiteProxy] Identical Connection From %v, Ending Connection...", clientConn.RemoteAddr().String())
@@ -85,6 +87,8 @@ func (s *Socks5Server) HandleConnections(req *req.Request) {
 
 	// clean-up function that is triggered at the end of each session or
 	// an error return (shuts down the session when anything goes wrong according to the RFC file)
+
+	logrus.Infof("[LiteProxy] Client %s is Connected to the Server Via TCP Connection", req.TcpConnect.RemoteAddr().String())
 	defer func() {
 
 		if req.TcpConnect != nil {

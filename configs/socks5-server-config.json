@@ -1,13 +1,21 @@
 {
-    "mode":"server",
-    "protocol":"socks5",
-    "port": 1080,
-    "tls_enable":true,
-    "read_time_out":"10s",
-    "write_time_out":"5s",
-    "cert_file":"server.cert",
-    "key_file":"server.key",
-    "max_conns":100,
-    "auth_priority":{"0":300, "2":500,"1":400},
-    "auth_methods":[{"tester":"Password0","admin":"Password1"}]
+    
+    "server_config":{
+
+        "mode":"server",
+        "protocol":"socks5",
+        "port": 1080,
+        "tls_enable":false,
+        "read_time_out": 10,
+        "write_time_out": 5,
+        "tls_certs":"server.cert",
+        "tls_key":"server.key",
+        "max_connections":10000,
+        "auth_priority":{"0":300, "2":500,"1":400}
+    },
+    
+    "credentials":{
+        "up_credentials":{"tester": "password0", "admin": "password1", "mock_trial": "password2"}
+    }
+    
 }
