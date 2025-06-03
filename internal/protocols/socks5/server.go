@@ -10,7 +10,6 @@ import (
 	auth "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5/authetication"
 	req "github.com/Icannotcode0/LiteProxy/internal/protocols/socks5/request"
 	config "github.com/Icannotcode0/LiteProxy/pkg/config"
-
 	"github.com/sirupsen/logrus"
 )
 
@@ -94,7 +93,9 @@ func (s *Socks5Server) HandleConnections(req *req.Request) {
 		if req.TcpConnect != nil {
 			req.TcpConnect.Close()
 		}
-		req.Bind.BindConnection.Close()
+		if req.Bind.BindConnection != nil {
+			req.Bind.BindConnection.Close()
+		}
 		s.ActiveConns.Delete(req.TcpConnect)
 		<-s.sem
 	}()
@@ -141,6 +142,17 @@ func (s *Socks5Server) HandleConnections(req *req.Request) {
 
 	// authetication finished, parse out user's requests
 
-	req.ParseRequest()
+	cmd, err := req.ParseRequest()
+	if err != nil || cmd == -1 {
+		logrus.Errorf("[LiteProxy] Unable to Process Request due to Error: %v", err)
+		logrus.Errorf("[LiteProxy] Ending Session With Client %s...", req.TcpConnect.RemoteAddr().String())
+		return
+	}
+
+	logrus.Infof("[LiteProxy] Client Requested %d Command", cmd)
+
+	// obtained all info regarding the target server and the type of request from client, log it now:
+
+	//logrus.Infof("[LiteProxy] Client Wishes to Connect to Address %s using Port %v", string(req.ConnectCtx.Addr), string(req.ConnectCtx.Addr))
 
 }

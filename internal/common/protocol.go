@@ -1,5 +1,7 @@
 package protocol
 
+import "net"
+
 // 常量定义，表示 SOCKS5 协议的各个部分
 const (
 	SOCKS5VER         = 0x05 // SOCKS5 Version
@@ -32,11 +34,11 @@ const (
 // Request Context Information
 
 type RequestCtx struct {
-	Version      uint8
-	Command      uint8
-	ATYP         uint8
-	Addr         string
-	Port         uint16
-	ResolvedAddr string
-	IsConnect    bool
+	Version            uint8
+	Command            uint8
+	ATYP               uint8
+	Addr               []byte
+	Port               uint16
+	ResolvedDstAddress net.Addr
+	IsConnect          bool
 }

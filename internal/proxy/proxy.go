@@ -1,14 +1,14 @@
 package proxy
 
+import (
+	"net"
+)
+
 type TrafficRely interface {
-	ServerClientRely()
+	ServerClientRely(net.Addr, net.Addr) ([]byte, error)
 	ServerTargetRely()
 }
 
-func ServerClientRely() {
-
-}
-
-func ServerTargetRely() {
+func ServerTargetRely(target net.Addr, user net.Addr)([]byte,error) {
 
 }
