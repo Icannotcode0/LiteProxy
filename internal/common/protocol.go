@@ -38,7 +38,7 @@ type RequestCtx struct {
 	Command            uint8
 	ATYP               uint8
 	Addr               []byte
-	Port               uint16
+	Port               int
 	ResolvedDstAddress net.Addr
 	IsConnect          bool
 }

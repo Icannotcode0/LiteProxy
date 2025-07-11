@@ -2,6 +2,7 @@ package config
 
 import (
 	"encoding/json"
+	"github.com/sirupsen/logrus"
 	"io"
 	"os"
 
@@ -22,23 +23,28 @@ type AuthUnLoader struct {
 func LoadJSON(filePath string) (config.Socks5ServerConfig, error) {
 
 	unloadConfig := UnLoader{}
-
 	file, err := os.Open(filePath)
 	if err != nil {
 		// logrus.Errorf("Cannot Open File Path %s: %v", filePath, err)
+
 		return config.Socks5ServerConfig{}, err
 	}
-	defer file.Close()
+
+	defer func() {
+		if err := file.Close(); err != nil {
+			logrus.Errorf("failed to close file: %v", err)
+		}
+	}()
 
 	content, err := io.ReadAll(file)
+
 	if err != nil {
-		// logrus.Errorf("Cannot Read File Path %s: %v", filePath, err)
 		return config.Socks5ServerConfig{}, err
 	}
 
 	if err := json.Unmarshal(content, &unloadConfig); err != nil {
 
-		// logrus.Errorf("Cannot Decode File Path %s: %v", filePath, err)
+		logrus.Errorf("Cannot Decode File Path %s: %v", filePath, err)
 		return config.Socks5ServerConfig{}, err
 	}
 
