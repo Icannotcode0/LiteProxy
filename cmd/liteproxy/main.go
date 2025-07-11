@@ -1,8 +1,6 @@
 package main
 
 import (
-	//"github.com/Icannotcode0/LiteProxy/internal/config"
-	"github.com/Icannotcode0/LiteProxy/internal/config"
 	"github.com/Icannotcode0/LiteProxy/pkg/socks5"
 	"time"
 
@@ -24,22 +22,20 @@ func newLogger() *logrus.Logger {
 
 func main() {
 
-	//classicSocks5Server := socks5.ClassicSock5Server()
-
+	classicSocks5Server := socks5.ClassicSock5Server()
 	serverLogger := newLogger()
+	//serverConfig, err := config.LoadJSON("/Users/maxihan/LiteProxy/configs/socks5-server-config.json")
+	//if err != nil {
+	//serverLogger.Errorf("[LiteProxy] Unable to Load JSON file: %v", err)
+	//return
+	//}
 
-	serverConfig, err := config.LoadJSON("/Users/maxihan/LiteProxy/configs/socks5-server-config.json")
-	if err != nil {
-		serverLogger.Errorf("[LiteProxy] Unable to Load JSON file: %v", err)
-		return
-	}
+	//newSocks5Server, err := socks5.NewSocks5Server(serverConfig)
+	//if err != nil {
+	//serverLogger.Fatalf("[LiteProxy] Cannot Initialize New SOCKS5 Server: %v", err)
+	//}
 
-	newSocks5Server, err := socks5.NewSocks5Server(serverConfig)
-	if err != nil {
-		serverLogger.Fatalf("[LiteProxy] Cannot Initialize New SOCKS5 Server: %v", err)
-	}
-
-	if err := newSocks5Server.ListenAndServe(); err != nil {
+	if err := classicSocks5Server.ListenAndServe(); err != nil {
 
 		serverLogger.Fatalf("[LiteProxy] Critical Error in SOCKS5 Server: %v", err)
 	}
