@@ -92,11 +92,6 @@ LiteProxy/
   ```bash
   curl -x socks5h://127.0.0.1:1080 https://example.com
   ```
-- **Go client script**:
-  ```bash
-  go run client.go -proxy 127.0.0.1:1080 -query cat -output ./images
-  ```
-
 ---
 
 ## 📌 Current Status
@@ -109,5 +104,5 @@ Pull requests and stars are welcome—let’s build this tiny titan together! �
 
 ## 📜 License
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+This project is licensed under the Apache-2.0 License. See [LICENSE](LICENSE) for details.
 
